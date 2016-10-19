@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <script src="http://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    {% load static %}
+
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'djbr/style.css' %}" />
+
+    <title>{% block title %}Django Book Reviews{% endblock %}</title>
+  </head>
+
+  <body>
+    <div class="container">
+
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <ul class="nav navbar-nav navbar-right">
+          {% if user.id %}            
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle"
+                 data-toggle="dropdown"
+                 role="button"
+                 aria-haspopup="true"
+                 aria-expanded="false">User <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="{% url 'djbr:profile' user.id %}">Profile</a></li>
+                <li><a href="{% url 'djbr:logout' %}">Logout</a></li>
+              </ul>
+            </li>
+          {% else %}
+            <li {% if request.path == '/djbr/login/' %}
+                class="active"
+                {% endif %}>
+              <a href="{% url 'djbr:login' %}">Login</a>
+            </li>
+            <li {% if request.path_info == '/djbr/user/' %}
+                class="active"
+                {% endif %}>
+              <a href="{% url 'djbr:profile' %}">Register</a>
+            </li>            
+          {% endif %}
+          </ul>
+              
+        </div>
+      </nav>      
+      <div class="jumbotron">
+        <h1>{% block heading %}Django Book Reviews{% endblock %}</h1>
+      </div>
+      <div class="col-md-offset-1 col-md-6">
+        {% block content %}{% endblock %}
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+{% extends "djbr/base.html" %}
+
+{% block content %}
+<form action="{% url 'djbr:login' %}"  method="post">
+  {% csrf_token %}
+  <input type="hidden" name="next" value="{{ request.GET.next }}" />
+  <div class="form-group">
+    <label for="title">Username</label>
+    <input type="text" id="username" name="username"
+           class="form-control" placeholder="Username"
+           value="{{ username }}"/>
+  </div>
+  <div class="form-group">
+    <label for="title">Password</label>
+    <input type="password" id="password" name="password"
+           class="form-control" placeholder="Password"
+           value="{{ password }}"/>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>  
+{% endblock %}

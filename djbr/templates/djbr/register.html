@@ -1,0 +1,53 @@
+{% extends "djbr/base.html" %}
+
+{% block content %}
+{% if error_message %}
+  <h2 class="bg-danger">{{ error_message }}</h2>
+{% endif %}
+<form action="{% url 'djbr:profile' %}"  method="post">
+  {% csrf_token %}
+  <div class="form-group">
+    <label for="title">First name</label>
+    <input type="text" id="first-name" name="first-name"
+           class="form-control" placeholder="First name"
+           value="{{ first_name }}"/>
+  </div>
+  <div class="form-group">
+    <label for="title">Last name</label>
+    <input type="text" id="last-name" name="last-name"
+           class="form-control" placeholder="Last name"
+           value="{{ last_name }}"/>
+  </div>
+  <div class="form-group">
+    <label for="title">Username</label>
+    <input type="text" id="username" name="username"
+           class="form-control" placeholder="Username"
+           value="{{ username }}"/>
+  </div>
+  <div class="form-group">
+    <label for="title">Email</label>
+    <input type="text" id="email" name="email"
+           class="form-control" placeholder="Email"
+           value="{{ email }}"/>
+  </div>
+  <div class="form-group
+       {% if error_code == 'password_mismatch' %}
+         has-error
+       {% endif %}">
+    <label for="title">Password</label>
+    <input type="password" id="password" name="password"
+           class="form-control" placeholder="Password"
+           value="{{ password }}"/>
+  </div>
+  <div class="form-group
+       {% if error_code == 'password_mismatch' %}
+         has-error
+       {% endif %}">
+    <label for="title">Confirm password</label>
+    <input type="password" id="confirm-password" name="confirm-password"
+           class="form-control" placeholder="Confirm password"
+           value="{{ confirm_password }}"/>
+  </div>    
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>  
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "djbr/base.html" %}
+
+{% block content %}
+{% if not book_reviews %}
+  <h2 class="bg-warning">No reviews yet.</h2>
+{% else %}
+  {% for review in book_reviews %}
+    <div class="list-group">      
+      <div class="list-group-item active">
+        Summary: {{ review.title }}
+        <a href="{% url 'djbr:review' book.id review.id %}" class="badge">
+          <span class="glyphicon glyphicon-pencil"
+                aria-hidden="true"></span>
+        </a>
+      </div>
+      <div class="list-group-item">
+        Review: {{ review.text }}
+      </div>
+      <div class="list-group-item">
+        Date reviewed: {{ review.review_date }}
+      </div>
+    </div>
+  {% endfor %}
+{% endif %}
+<a href="{% url 'djbr:review' book.id %}"
+   class="btn btn-primary" role="button">Add</a>
+{% endblock %}
